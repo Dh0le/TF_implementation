@@ -21,7 +21,7 @@ test_set_x = test_set_x_orig_flatten/255
 #model with flatten input
 
 model = keras.Sequential([
-    keras.layers.Dense(12288, activation='relu'),
+
     keras.layers.Dense(1, activation='sigmoid')
 ])
 model.compile(optimizer='adam',
