@@ -44,11 +44,13 @@ def initialize_parameters(n_x,n_h,n_y):
     return parameters
 
 ### test code starts
+"""
 parameters = initialize_parameters(2,2,1)
 print("W1 = " + str(parameters["W1"]))
 print("b1 = " + str(parameters["b1"]))
 print("W2 = " + str(parameters["W2"]))
 print("b2 = " + str(parameters["b2"]))
+"""
 #### test code ends
 
 ### starts to create a initilizer for deep NN
@@ -101,12 +103,13 @@ def linear_forward(A,W,b):
     return Z, cache
 
 #test code starts 
+"""
 A, W, b = linear_forward_test_case()
 
 Z, linear_cache = linear_forward(A, W, b)
 
 print("Z = " + str(Z))
-
+"""
 #test code ends
 
 ### Set activation function
@@ -125,7 +128,7 @@ def linear_activation_forward(A_prev,W,b,activation):
     return A, cache
 
 ### test code starts 
-
+"""
 A_prev, W, b = linear_activation_forward_test_case()
 
 A, linear_activation_cache = linear_activation_forward(A_prev, W, b, activation = "sigmoid")
@@ -133,7 +136,7 @@ print("With sigmoid: A = " + str(A))
 
 A, linear_activation_cache = linear_activation_forward(A_prev, W, b, activation = "relu")
 print("With ReLU: A = " + str(A))
-
+"""
 ### test cdoe ends
 
 ### L_model_forward
@@ -184,12 +187,12 @@ def L_model_forward(X, parameters):
     return AL, caches
 
 ### test code starts
-
+"""
 X, parameters = L_model_forward_test_case()
 AL, caches = L_model_forward(X, parameters)
 print("AL = " + str(AL))
 print("Length of caches list = " + str(len(caches)))
-
+"""
 ### test code ends
 
 
@@ -206,11 +209,11 @@ def compute_cost(AL,Y):
     return cost
 
 ### test code start 
-
+"""
 Y, AL = compute_cost_test_case()
 
 print("cost = " + str(compute_cost(AL,Y)))
-
+"""
 ### test code ends
 
 def linear_backward(dZ,cache): 
@@ -248,10 +251,10 @@ def linear_activation_backward(dA, cache,activation):
 
     return dA_prev, dw,db
 ### test code starts 
-
+"""
 AL, linear_activation_cache = linear_activation_backward_test_case()
 
-dA_prev, dW, db = linear_activation_backward(AL, linear_activation_cache, activation = "sigmoid")
+dA_prev, dW, db = linear_activation_backward(AL, linear_activation_cache, activation  = "sigmoid")
 print ("sigmoid:")
 print ("dA_prev = "+ str(dA_prev))
 print ("dW = " + str(dW))
@@ -262,7 +265,7 @@ print ("relu:")
 print ("dA_prev = "+ str(dA_prev))
 print ("dW = " + str(dW))
 print ("db = " + str(db))
-
+"""
 ### test code ends
 def L_model_backward(AL,Y,caches): 
     grads = {}
