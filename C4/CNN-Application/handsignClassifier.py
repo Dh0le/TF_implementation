@@ -8,6 +8,7 @@ import scipy
 from PIL import Image
 from scipy import ndimage
 import tensorflow as tf
+from tensorflow import keras
 from tensorflow.python.framework import ops
 from cnn_utils import *
 
@@ -31,12 +32,30 @@ print ("Y_test shape: " + str(Y_test.shape))
 conv_layers = {}
 
 ## Create a model first for following layers
-model = Sequential()
+model = keras.models.Sequential()
 ##Accoding to original we should create function for initlizing weight and bias using xavier initlizer. But we can actually do it in keras with more elegent way now. 
 ## We will still keep the hyperparameter of original model where W1:[4,4,3,8] and W2:[2,2,8,16] for two conv2D layer.
-model.add(features = tf.layers.conv2d(
-    features,
-    filters=64,
-    kernel_size=3,
-    padding="same",
-    name="conv2d/1"))
+
+##Add the first convoluted layers into the model.
+model.add(keras.layers.Conv2D(8,4,1,padding="same",activation="relu",use_bias=True,kernel_initializer=keras.initializers.glorot_normal,bias_initializer="zeros"))
+## Previous code completed weight bias initilization and computation towards both Z and A since activation was included. 
+
+##Add pooling layer into model.
+model.add(keras.layers.MaxPooling2D((8,8),8,padding="same"))
+## This code will create a window for 8,8 and stride 8 pooling layer.
+
+##Add second conv layer
+model.add(keras.layers.Conv2D(16,2,1,padding="same",activation='relu',use_bias = True,kernel_initializer=keras.initializers.glorot_normal,bias_initializer="zeros"))
+
+##Add second pooling layer
+model.add(keras.layers.MaxPooling2D((4,4),4,padding="same"))
+
+##Add flatten layer
+model.add(keras.layers.Flatten())
+##Add dense(FC) layer,
+model.add(keras.layers.Dense(6))
+
+model.compile(loss="sparse_categorical_crossentropy",
+             optimizer = "Adam"),
+              metrics=["accuracy"]
+             )
