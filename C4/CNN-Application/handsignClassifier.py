@@ -5,30 +5,13 @@ import numpy as np
 import h5py
 import matplotlib.pyplot as plt
 import scipy
+import pandas as pd
 from PIL import Image
 from scipy import ndimage
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.python.framework import ops
 from cnn_utils import *
-
-def compute_cost(Z3, Y):
-    """
-    Computes the cost
-    
-    Arguments:
-    Z3 -- output of forward propagation (output of the last LINEAR unit), of shape (6, number of examples)
-    Y -- "true" labels vector placeholder, same shape as Z3
-    
-    Returns:
-    cost - Tensor of the cost function
-    """
-    
-    ### START CODE HERE ### (1 line of code)
-    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=Z3, labels=Y))
-    ### END CODE HERE ###
-    
-    return cost
 
 np.random.seed(1)# Loading the data (signs)
 
@@ -72,6 +55,12 @@ for i in range(25):
 plt.show()
 """
 
+def plot_learning_curve(history):
+    pd.DataFrame(history.history).plot(figsize=(8,5))
+    plt.grid(True)
+    plt.gca().set_ylim(0,1)
+    plt.show
+
 
 
 ## Create a model first for following layers
@@ -102,4 +91,6 @@ model.summary()
 model.compile(loss='categorical_crossentropy',
              optimizer = "Adam",metrics=["accuracy"])
 
-model.fit(X_train,Y_train,epochs= 100,validation_data=(X_test,Y_test))
+history = model.fit(X_train,Y_train,epochs= 100,validation_data=(X_test,Y_test))
+
+plot_learning_curve(history)
