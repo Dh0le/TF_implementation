@@ -1,5 +1,6 @@
 ##The reason why we used this is because that tensorflow has already udpated to 2.0 and many old API were no longer viable. 
 ##And the project will be implement in keras.
+#%%
 import math 
 import numpy as np
 import h5py
